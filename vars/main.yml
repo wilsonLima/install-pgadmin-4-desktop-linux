@@ -1,0 +1,67 @@
+---
+
+
+
+
+
+pgadmin4_packages:
+  - pgadmin4-desktop
+
+
+pgadmin4_debian_deps:
+  - ca-certificates 
+  - curl 
+  - gnupg
+
+
+rpm_pgadmin4_repo: "pgadmin4-fedora-repo-2-1.noarch.rpm"
+
+
+url_rpm_pgadmin4_repo: "https://ftp.postgresql.org/pub/pgadmin/pgadmin4/yum/{{ rpm_pgadmin4_repo }}"
+
+
+mint_debian_versions: {
+  "2" : "jessie",
+  "3" : "stretch",
+  "4" : "buster",
+  "5" : "bullseye"
+ 
+}
+
+
+the_mint_ubuntu_versions: {
+  '17' : 'trusty',
+  '18' : 'xenial',
+  '19' : 'bionic',
+  '20' : 'focal',
+  '21' : 'jammy'
+}
+
+
+mint_lmde_versions :
+  - betsy
+  - cindy
+  - debbie
+  - elsie
+
+
+mint_versions :
+  - qiana
+  - rebecca
+  - rafaela
+  - rosa 
+  - sarah
+  - serena
+  - sonya
+  - sylvia
+  - tara
+  - tessa
+  - tina
+  - tricia
+  - ulyana
+  - ulyssa
+  - uma
+  - una
+  - vanessa
+  - vera
+  - victoria

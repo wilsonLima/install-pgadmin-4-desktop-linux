@@ -1,0 +1,81 @@
+---
+
+
+# Instalação das dependências e repositorio do pgAdmin 4
+
+- name: "Instalando dependências para o pgAdmin 4"
+  apt:
+    name: "{{ pgadmin4_debian_deps }}"
+    state: present
+  become: true
+  tags:
+    - pgadmin4
+    - repo
+
+
+- name: "Importando a chave do repositorio do pgAdmin 4"
+  apt_key: 
+    url: "https://www.pgadmin.org/static/packages_pgadmin_org.pub"
+    keyring: "/usr/share/keyrings/packages-pgadmin-org.gpg"
+    state: present
+  become: true
+  tags:
+    - pgadmin4
+    - repo
+
+
+- name: "Adicionando o Repositorio do pgAdmin 4 no para o Debian ou Ubuntu"
+  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
+  apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/packages-pgadmin-org.gpg] https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/{{ ansible_distribution_release | lower }} pgadmin4 main"
+    state: present
+    filename: pgadmin4
+  become: true
+  tags:
+    - pgadmin4
+    - repo
+
+
+- name: "Adicionando o Repositorio do pgAdmin 4 no Linux Mint"
+  when: ansible_distribution == "Linux Mint" and ansible_distribution_release in mint_versions
+  apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/packages-pgadmin-org.gpg] https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/{{ the_mint_ubuntu_versions[ansible_distribution_major_version|string] }} pgadmin4 main"
+    state: present
+    filename: pgadmin4
+  become: true
+  tags:
+    - pgadmin4
+    - repo
+
+
+- name: "Adicionando o Repositorio do pgAdmin 4 no Linux Mint LMDE"
+  when: ansible_distribution == "Linux Mint" and ansible_distribution_release in mint_lmde_versions
+  apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/packages-pgadmin-org.gpg] https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/{{ mint_debian_versions[ansible_distribution_major_version|string] }} pgadmin4 main"
+    state: present
+    filename: pgadmin4
+  become: true
+  tags:
+    - pgadmin4
+    - repo
+
+
+- name: "Atualizando apt cache"
+  apt: 
+    update_cache: yes 
+    cache_valid_time: 7200
+  become: true
+  tags:
+    - pgadmin4
+    - repo
+
+
+# Instalando o Docker
+
+- name: "Instalando o pgAdmin 4"
+  apt:
+    name: "{{ pgadmin4_packages }}"
+    state: present
+  become: true
+  tags:
+    - pgadmin4

@@ -1,0 +1,35 @@
+---
+
+
+# Instalando o repositório do pgAdmin 4
+
+- name: "Baixando o arquivo do repositório do pgAdmin 4"
+  get_url:
+   url: "{{ url_rpm_pgadmin4_repo }}"
+   dest: "/tmp/{{ rpm_pgadmin4_repo }}"
+   timeout: 30
+  tags:
+   - nodejs
+
+
+- name: "Instalando o repositório do pgAdmin 4"
+  dnf:
+    name: "/tmp/{{ rpm_pgadmin4_repo }}"
+    state: present
+    disable_gpg_check: yes
+  become: true
+  tags:
+    - pgadmin4
+    - repo
+
+
+# Instalando o pgAdmin 4
+
+- name: "Instalando o pgAdmin 4"
+  dnf:
+    name: "{{ pgadmin4_packages }}"
+    state: present
+  become: true
+  tags:
+    - pgadmin4
+    - repo
